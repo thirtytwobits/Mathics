@@ -548,12 +548,12 @@ ClearAll[symmetryLaw];
 symmetryLaw[x_, y_] := sameq[ sameq[x, y], sameq[y, x] ]
 
 (* 1.4, page 12 *)
-ClearAll[transitivityLaw];
-transitivityLaw [ and [ sameq[x_, y_], sameq[y_, z_] ] ] := sameq[x, z]
+transitivityLaw [x_, y_, z_] := If [ and [ sameq[x, y], sameq[y, z] ], 
+                                       sameq[x, z], 
+                                       False ]
 
-expect[ sameq[ x+y, 7 ],
-        transitivityLaw [ and [ sameq [ x+y, w+1 ],
-                                sameq [ w+1, 7 ] ] ] ]
+expect[ If [ and [ sameq[x+y, w+1], sameq[w+1, 7] ], sameq[x+y, 7], False ],
+       transitivityLaw[x+y, w+1 , 7] ]
 
 (* ****************************************************************************
 
